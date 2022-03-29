@@ -1,9 +1,210 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+    provider          = "postgresql"
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+    id        Int      @id @default(autoincrement())
+    username  String   @unique
+    email     String   @unique
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks Attack[]
+}
+
+model Attack {
+    id        Int      @id @default(autoincrement())
+    startedAt DateTime
+    endedAt   DateTime
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user               User                     @relation(fields: [userId], references: [id])
+    userId             Int
+    intensity          Intensity?               @relation(fields: [intensityId], references: [id])
+    intensityId        Int
+    medication         Medication?              @relation(fields: [medicationId], references: [id])
+    medicationId       Int
+    type               Type?                    @relation(fields: [typeId], references: [id])
+    typeId             Int
+    physicalLocation   PhysicalLocation?        @relation(fields: [physicalLocationId], references: [id])
+    physicalLocationId Int
+    note               Note?
+    symptoms           AttacksOnSymptoms[]
+    triggers           AttacksOnTriggers[]
+    effects            AttacksOnEffects[]
+    preSymptoms        AttacksOnPreSymptoms[]
+    reliefMethods      AttacksOnReliefMethods[]
+    painLocations      AttacksOnPainLocations[]
+}
+
+model Intensity {
+    id        Int      @id @default(autoincrement())
+    number    Int      @unique
+    level     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks Attack[]
+}
+
+model Medication {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks Attack[]
+    drug    Drug     @relation(fields: [drugId], references: [id])
+    drugId  Int      @unique
+    dose    Dose     @relation(fields: [doseId], references: [id])
+    doseId  Int      @unique
+}
+
+model Drug {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    medication Medication?
+}
+
+model Dose {
+    id         Int      @id @default(autoincrement())
+    milligrams Int      @unique
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    medication Medication?
+}
+
+model Type {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks Attack[]
+}
+
+model PhysicalLocation {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks Attack[]
+}
+
+model Note {
+    id        Int      @id @default(autoincrement())
+    content   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attack   Attack @relation(fields: [attackId], references: [id])
+    attackId Int    @unique
+}
+
+model Symptom {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnSymptoms[]
+}
+
+model AttacksOnSymptoms {
+    attack    Attack  @relation(fields: [attackId], references: [id])
+    attackId  Int     @unique
+    symptom   Symptom @relation(fields: [symptomId], references: [id])
+    symptomId Int     @unique
+}
+
+model Trigger {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnTriggers[]
+}
+
+model AttacksOnTriggers {
+    attack    Attack  @relation(fields: [attackId], references: [id])
+    attackId  Int     @unique
+    trigger   Trigger @relation(fields: [triggerId], references: [id])
+    triggerId Int     @unique
+}
+
+model Effect {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnEffects[]
+}
+
+model AttacksOnEffects {
+    attack   Attack @relation(fields: [attackId], references: [id])
+    attackId Int    @unique
+    effect   Effect @relation(fields: [effectId], references: [id])
+    effectId Int    @unique
+}
+
+model PreSymptom {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnPreSymptoms[]
+}
+
+model AttacksOnPreSymptoms {
+    attack       Attack     @relation(fields: [attackId], references: [id])
+    attackId     Int        @unique
+    preSymptom   PreSymptom @relation(fields: [preSymptomId], references: [id])
+    preSymptomId Int        @unique
+}
+
+model ReliefMethod {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnReliefMethods[]
+}
+
+model AttacksOnReliefMethods {
+    attack         Attack       @relation(fields: [attackId], references: [id])
+    attackId       Int          @unique
+    reliefMethod   ReliefMethod @relation(fields: [reliefMethodId], references: [id])
+    reliefMethodId Int          @unique
+}
+
+model PainLocation {
+    id        Int      @id @default(autoincrement())
+    location  String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    attacks AttacksOnPainLocations[]
+}
+
+model AttacksOnPainLocations {
+    attack         Attack       @relation(fields: [attackId], references: [id])
+    attackId       Int          @unique
+    painLocation   PainLocation @relation(fields: [painLocationId], references: [id])
+    painLocationId Int          @unique
 }
