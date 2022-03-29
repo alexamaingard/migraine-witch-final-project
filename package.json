@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@babel/core": "^7.17.8",
+        "@prisma/client": "^3.11.1",
         "@testing-library/jest-dom": "^5.16.3",
         "@testing-library/react": "^12.1.4",
         "@testing-library/user-event": "^13.5.0",
@@ -10,8 +12,19 @@
         "@types/node": "^16.11.26",
         "@types/react": "^17.0.43",
         "@types/react-dom": "^17.0.14",
+        "babel": "^6.23.0",
+        "bcrypt": "^5.0.1",
+        "concurrently": "^7.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "jasmine": "^4.0.2",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "nodemon": "^2.0.15",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-router-dom": "^6.2.2",
         "react-scripts": "5.0.0",
         "typescript": "^4.6.3",
         "web-vitals": "^2.1.4"
@@ -45,5 +58,20 @@
         "singleQuote": true,
         "semicolons": true,
         "jsxSingleQuote": true
+    },
+    "description": "This is the final project for BooleanUK (Full Stack Software Development bootcamp).",
+    "main": "src/index.tsx",
+    "devDependencies": {
+        "prisma": "^3.11.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alexamaingard/migraine-witch.git"
+    },
+    "keywords": [],
+    "author": "Alexa Marie Eliane Maingard",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/alexamaingard/migraine-witch/issues"
     }
 }
