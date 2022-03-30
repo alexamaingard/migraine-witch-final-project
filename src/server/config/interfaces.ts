@@ -21,6 +21,27 @@ export interface Trigger {
     name: string
 }
 
+export interface PhysicalLocation {
+    name: string
+}
+
+
+export interface Effect {
+    name: string
+}
+
+export interface Aura {
+    name: string
+}
+
+export interface ReliefMethod {
+    name: string
+}
+
+export interface PainLocation {
+    location: string
+}
+
 export interface Attack {
     
 }
