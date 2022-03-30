@@ -11,7 +11,6 @@ export const MEDICATIONS: Array<Medication> = [
     { drug: 'Ibuprofen', dose: '200mg', type: 'Pill' },
     { drug: 'Ibuprofen', dose: '400mg', type: 'Pill' },
     { drug: 'Ibuprofen', dose: '600mg', type: 'Pill' },
-    { drug: 'Ibuprofen', dose: '200mg', type: 'Pill' },
     { drug: 'Sumatriptan', dose: '3mg', type: 'Injection' },
     { drug: 'Aimovig', dose: '70ml', type: 'Injection' },
     { drug: 'Ubrelvy', dose: '50mg', type: 'Pill' },
