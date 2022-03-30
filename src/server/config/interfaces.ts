@@ -42,6 +42,19 @@ export interface PainLocation {
     location: string
 }
 
-export interface Attack {
-    
+export interface AttackData {
+    startedAt: string,
+    endedAt: string,
+    userId: number,
+    intensityId: number,
+    medicationId: number,
+    typeId: number,
+    physicalLocationId: number,
+    noteId: number,
+    symptoms: any,
+    triggers: any,
+    effects: any,
+    auras: any,
+    reliefMethods: any,
+    painLocations: any
 }

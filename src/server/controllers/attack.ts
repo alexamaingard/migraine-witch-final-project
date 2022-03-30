@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 import { PRISMA_ERROR, SERVER_ERROR, SERVER_SUCCESS } from '../config/serverRes';
 import { 
-    Intensity, Medication, Trigger, Type, Symptom, PhysicalLocation, Effect, Aura, ReliefMethod, PainLocation 
+    Intensity, Medication, Trigger, Type, Symptom, PhysicalLocation, Effect, Aura, ReliefMethod, PainLocation, AttackData 
 } from '../config/interfaces';
 
 import { INTENSITIES } from '../data/intensities';
@@ -545,12 +545,12 @@ export const deleteNote = async (req: Request, res: Response):Promise<void> => {
     res.status(SERVER_SUCCESS.DELETE_OK.CODE).json(SERVER_SUCCESS.DELETE_OK.MESSAGE);
 }
 
-export const createAttack = async (req: Request, res: Response):Promise<void> => {
+const buildAttackData = (req: Request):AttackData => {
     const { startedAt, endedAt, userId } = req.body;
     const { intensityId, medicationId, typeId, physicalLocationId, noteId } = req.body;
     const { symptoms, triggers, effects, auras, reliefMethods, painLocations } = req.body;
 
-    let data = {
+    const data = {
         startedAt: startedAt,
         endedAt: endedAt,
         userId: userId,
@@ -676,6 +676,12 @@ export const createAttack = async (req: Request, res: Response):Promise<void> =>
             })
         }
     }
+
+    return data;
+} 
+
+export const createAttack = async (req: Request, res: Response):Promise<void> => {
+    const data = buildAttackData(req);
 
     const createdAttack = await prisma.attack.create({
         data: {
