@@ -36,7 +36,8 @@ model Attack {
     typeId             Int
     physicalLocation   PhysicalLocation?        @relation(fields: [physicalLocationId], references: [id])
     physicalLocationId Int
-    note               Note?
+    note               Note?                    @relation(fields: [noteId], references: [id])
+    noteId             Int                      
     symptoms           AttacksOnSymptoms[]
     triggers           AttacksOnTriggers[]
     effects            AttacksOnEffects[]
@@ -57,33 +58,36 @@ model Intensity {
 
 model Medication {
     id        Int      @id @default(autoincrement())
+    drug      String
+    dose      String
+    type      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     attacks Attack[]
-    drug    Drug     @relation(fields: [drugId], references: [id])
-    drugId  Int      @unique
-    dose    Dose     @relation(fields: [doseId], references: [id])
-    doseId  Int      @unique
+    // drug    Drug     @relation(fields: [drugId], references: [id])
+    // drugId  Int      @unique
+    // dose    Dose     @relation(fields: [doseId], references: [id])
+    // doseId  Int      @unique
 }
 
-model Drug {
-    id        Int      @id @default(autoincrement())
-    name      String   @unique
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+// model Drug {
+//     id        Int      @id @default(autoincrement())
+//     name      String   @unique
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
 
-    medication Medication?
-}
+//     medication Medication?
+// }
 
-model Dose {
-    id         Int      @id @default(autoincrement())
-    milligrams Int      @unique
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+// model Dose {
+//     id         Int      @id @default(autoincrement())
+//     milligrams Int      @unique
+//     createdAt  DateTime @default(now())
+//     updatedAt  DateTime @updatedAt
 
-    medication Medication?
-}
+//     medication Medication?
+// }
 
 model Type {
     id        Int      @id @default(autoincrement())
@@ -109,8 +113,7 @@ model Note {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    attack   Attack @relation(fields: [attackId], references: [id])
-    attackId Int    @unique
+    attack Attack?
 }
 
 model Symptom {
