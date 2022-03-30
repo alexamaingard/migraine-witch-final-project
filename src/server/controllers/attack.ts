@@ -570,7 +570,6 @@ const buildAttackData = (req: Request):AttackData => {
     if(symptoms){
         data.symptoms = {
             create: symptoms.map((symptom: Symptom) => {
-                console.log(symptom);
                 return {
                     symptom: {
                         connectOrCreate: {
@@ -678,52 +677,59 @@ const buildAttackData = (req: Request):AttackData => {
     }
 
     return data;
-} 
+}
+
+const buildAttackInclude = () => {
+    return {
+        // user: true,
+        intensity: true,
+        medication: true,
+        type: true,
+        physicalLocation: true,
+        note: true,
+        symptoms: {
+            include: {
+                symptom: true
+            }
+        },
+        triggers: {
+            include: {
+                trigger: true
+            }
+        },
+        effects: {
+            include: {
+                effect: true
+            }
+        },
+        auras: {
+            include: {
+                aura: true
+            }
+        },
+        reliefMethods: {
+            include: {
+                reliefMethod: true
+            }
+        },
+        painLocations: {
+            include: {
+                painLocation: true
+            }
+        }
+    }
+}
 
 export const createAttack = async (req: Request, res: Response):Promise<void> => {
     const data = buildAttackData(req);
+    const include = buildAttackInclude();
 
     const createdAttack = await prisma.attack.create({
         data: {
             ...data
         },
         include: {
-            // user: true,
-            intensity: true,
-            medication: true,
-            type: true,
-            physicalLocation: true,
-            note: true,
-            symptoms: {
-                include: {
-                    symptom: true
-                }
-            },
-            triggers: {
-                include: {
-                    trigger: true
-                }
-            },
-            effects: {
-                include: {
-                    effect: true
-                }
-            },
-            auras: {
-                include: {
-                    aura: true
-                }
-            },
-            reliefMethods: {
-                include: {
-                    reliefMethod: true
-                }
-            },
-            painLocations: {
-                include: {
-                    painLocation: true
-                }
-            }
+            ...include
         }
     });
     console.log('Created Attack:', createdAttack);
