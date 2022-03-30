@@ -20,28 +20,28 @@ model User {
 }
 
 model Attack {
-    id        Int      @id @default(autoincrement())
-    startedAt DateTime
-    endedAt   DateTime
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id        Int       @id @default(autoincrement())
+    startedAt DateTime? @default(now())
+    endedAt   DateTime?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 
-    user               User                     @relation(fields: [userId], references: [id])
-    userId             Int
+    user               User?                     @relation(fields: [userId], references: [id])
+    userId             Int?
     intensity          Intensity?               @relation(fields: [intensityId], references: [id])
-    intensityId        Int
+    intensityId        Int?
     medication         Medication?              @relation(fields: [medicationId], references: [id])
-    medicationId       Int
+    medicationId       Int?
     type               Type?                    @relation(fields: [typeId], references: [id])
-    typeId             Int
+    typeId             Int?
     physicalLocation   PhysicalLocation?        @relation(fields: [physicalLocationId], references: [id])
-    physicalLocationId Int
+    physicalLocationId Int?
     note               Note?                    @relation(fields: [noteId], references: [id])
-    noteId             Int                      
+    noteId             Int?                      @unique
     symptoms           AttacksOnSymptoms[]
     triggers           AttacksOnTriggers[]
     effects            AttacksOnEffects[]
-    preSymptoms        AttacksOnPreSymptoms[]
+    auras              AttacksOnAuras[]
     reliefMethods      AttacksOnReliefMethods[]
     painLocations      AttacksOnPainLocations[]
 }
@@ -65,29 +65,7 @@ model Medication {
     updatedAt DateTime @updatedAt
 
     attacks Attack[]
-    // drug    Drug     @relation(fields: [drugId], references: [id])
-    // drugId  Int      @unique
-    // dose    Dose     @relation(fields: [doseId], references: [id])
-    // doseId  Int      @unique
 }
-
-// model Drug {
-//     id        Int      @id @default(autoincrement())
-//     name      String   @unique
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-
-//     medication Medication?
-// }
-
-// model Dose {
-//     id         Int      @id @default(autoincrement())
-//     milligrams Int      @unique
-//     createdAt  DateTime @default(now())
-//     updatedAt  DateTime @updatedAt
-
-//     medication Medication?
-// }
 
 model Type {
     id        Int      @id @default(autoincrement())
@@ -127,9 +105,10 @@ model Symptom {
 
 model AttacksOnSymptoms {
     attack    Attack  @relation(fields: [attackId], references: [id])
-    attackId  Int     @unique
+    attackId  Int     
     symptom   Symptom @relation(fields: [symptomId], references: [id])
-    symptomId Int     @unique
+    symptomId Int   
+    @@id([attackId, symptomId])  
 }
 
 model Trigger {
@@ -143,9 +122,10 @@ model Trigger {
 
 model AttacksOnTriggers {
     attack    Attack  @relation(fields: [attackId], references: [id])
-    attackId  Int     @unique
+    attackId  Int     
     trigger   Trigger @relation(fields: [triggerId], references: [id])
-    triggerId Int     @unique
+    triggerId Int  
+    @@id([attackId, triggerId])   
 }
 
 model Effect {
@@ -159,25 +139,27 @@ model Effect {
 
 model AttacksOnEffects {
     attack   Attack @relation(fields: [attackId], references: [id])
-    attackId Int    @unique
+    attackId Int    
     effect   Effect @relation(fields: [effectId], references: [id])
-    effectId Int    @unique
+    effectId Int    
+    @@id([attackId, effectId])
 }
 
-model PreSymptom {
+model Aura {
     id        Int      @id @default(autoincrement())
     name      String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    attacks AttacksOnPreSymptoms[]
+    attacks AttacksOnAuras[]
 }
 
-model AttacksOnPreSymptoms {
-    attack       Attack     @relation(fields: [attackId], references: [id])
-    attackId     Int        @unique
-    preSymptom   PreSymptom @relation(fields: [preSymptomId], references: [id])
-    preSymptomId Int        @unique
+model AttacksOnAuras {
+    attack   Attack @relation(fields: [attackId], references: [id])
+    attackId Int    
+    aura     Aura   @relation(fields: [auraId], references: [id])
+    auraId   Int 
+    @@id([attackId, auraId])     
 }
 
 model ReliefMethod {
@@ -191,9 +173,10 @@ model ReliefMethod {
 
 model AttacksOnReliefMethods {
     attack         Attack       @relation(fields: [attackId], references: [id])
-    attackId       Int          @unique
+    attackId       Int          
     reliefMethod   ReliefMethod @relation(fields: [reliefMethodId], references: [id])
-    reliefMethodId Int          @unique
+    reliefMethodId Int   
+    @@id([attackId, reliefMethodId])       
 }
 
 model PainLocation {
@@ -207,7 +190,8 @@ model PainLocation {
 
 model AttacksOnPainLocations {
     attack         Attack       @relation(fields: [attackId], references: [id])
-    attackId       Int          @unique
+    attackId       Int          
     painLocation   PainLocation @relation(fields: [painLocationId], references: [id])
-    painLocationId Int          @unique
+    painLocationId Int       
+    @@id([attackId, painLocationId])  
 }
