@@ -18,10 +18,7 @@ import {
 
 const router = Router();
 
-//Tested
 router.post('/init', initDataBase);
-
-//Not tested yet
 router.post('/med', createMedicationByUser);
 router.post('/type', createTypeByUser);
 router.post('/symptom', createSymptomByUser);
