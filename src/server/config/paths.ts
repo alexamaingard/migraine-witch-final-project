@@ -1,4 +1,4 @@
 export const ROUTES = {
-    USER: 'user/',
-    ATTACK: 'attack/'
+    USER: '/user',
+    ATTACK: '/attack'
 }
