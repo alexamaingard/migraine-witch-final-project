@@ -1,5 +1,5 @@
 .header {
-    height: 5vh;
+    height: var(--header-height);
     padding: 10px;
     background-color: var(--brown);
     color: white;
@@ -26,10 +26,11 @@
 
 .header-right a {
     color: var(--brown);
+    font-weight: bold;
 }
 
 .header-right li {
-    background-color: var(--grey);
+    background-color: white;
     height: fit-content;
     padding: 5px;
     border-radius: 5px;
