@@ -1,0 +1,17 @@
+:root {
+    --brown: #312d2d;
+    --grey: #c6c7ce;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h3,
+h4,
+p,
+a {
+    font-family: 'OpenSauceSansRegular';
+    font-weight: normal;
+    font-style: normal;
+}
