@@ -11,6 +11,7 @@ import {
     createSymptomByUser,
     createTriggerByUser,
     createTypeByUser,
+    deleteAttack,
     deleteNote,
     initDataBase, 
     updateNote
@@ -32,5 +33,6 @@ router.patch('/note/:noteId', updateNote);
 router.delete('/note/:noteId', deleteNote);
 
 router.post('/', createAttack);
+router.delete('/', deleteAttack);
 
 export default router;

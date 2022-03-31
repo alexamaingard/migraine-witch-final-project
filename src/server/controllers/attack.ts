@@ -740,3 +740,18 @@ export const createAttack = async (req: Request, res: Response):Promise<void> =>
 
     res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: createdAttack });
 }
+
+export const updateAttack = () => {}
+
+export const deleteAttack = async (req: Request, res: Response):Promise<void> => {
+    const attackId: number = Number(req.params.attackId);
+
+    const deletedAttack = await prisma.attack.delete({
+        where: {
+            id: attackId
+        }
+    });
+    console.log('Deleted Note:', deletedAttack);
+
+    res.status(SERVER_SUCCESS.DELETE_OK.CODE).json(SERVER_SUCCESS.DELETE_OK.MESSAGE);
+}
