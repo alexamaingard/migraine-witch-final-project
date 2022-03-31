@@ -1,0 +1,40 @@
+.record-attack-page {
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    background-color: var(--grey);
+    padding: var(--page-gap) 5vw;
+}
+
+.record-attack-container {
+    padding-top: var(--page-gap);
+    display: flex;
+    gap: var(--page-gap);
+}
+
+.attack-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--inner-gap);
+}
+
+.attack-form label {
+    color: var(--brown);
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.options ul {
+    padding-left: 0;
+}
+
+span {
+    padding-left: 5px;
+}
+
+textarea {
+    resize: none;
+}
