@@ -780,7 +780,7 @@ export const getAll = async (req: Request, res: Response) => {
     const types = await prisma.type.findMany({});
 
     res.status(SERVER_SUCCESS.OK.CODE).json({ 
-        data: 
+        data: {
             auras, 
             effects, 
             intensities, 
@@ -791,6 +791,6 @@ export const getAll = async (req: Request, res: Response) => {
             symptoms, 
             triggers, 
             types 
-        }
+        }}
     );
 }
