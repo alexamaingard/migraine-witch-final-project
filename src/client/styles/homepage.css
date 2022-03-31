@@ -69,14 +69,10 @@
 }
 
 .homepage-info {
-    padding: var(--page-gap) 0 var(--page-gap) 5vw;
+    padding: var(--page-gap) 5vw;
     display: flex;
     gap: var(--inner-gap);
     align-items: center;
-}
-
-.homepage h2 {
-    font-size: 3rem;
 }
 
 .homepage-info-right {
