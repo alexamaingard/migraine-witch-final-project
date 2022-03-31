@@ -56,7 +56,7 @@ select {
 
 input,
 textarea {
-    border: none;
+    /* border: none; */
     border-radius: 3px;
 }
 
