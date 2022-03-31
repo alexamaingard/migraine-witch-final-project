@@ -765,3 +765,32 @@ export const deleteAttack = async (req: Request, res: Response):Promise<void> =>
 
     res.status(SERVER_SUCCESS.DELETE_OK.CODE).json(SERVER_SUCCESS.DELETE_OK.MESSAGE);
 }
+
+//GET FUNCTIONS
+export const getAll = async (req: Request, res: Response) => {
+    const auras = await prisma.aura.findMany({});
+    const effects = await prisma.effect.findMany({});
+    const intensities = await prisma.intensity.findMany({});
+    const medications = await prisma.medication.findMany({});
+    const painLocations = await prisma.painLocation.findMany({});
+    const physicalLocations = await prisma.physicalLocation.findMany({});
+    const reliefMethods = await prisma.reliefMethod.findMany({});
+    const symptoms = await prisma.symptom.findMany({});
+    const triggers = await prisma.trigger.findMany({});
+    const types = await prisma.type.findMany({});
+
+    res.status(SERVER_SUCCESS.OK.CODE).json({ 
+        data: 
+            auras, 
+            effects, 
+            intensities, 
+            medications, 
+            painLocations, 
+            physicalLocations, 
+            reliefMethods, 
+            symptoms, 
+            triggers, 
+            types 
+        }
+    );
+}
