@@ -1,0 +1,62 @@
+.contact {
+    padding: var(--page-gap) 0 var(--page-gap) 5vw;    
+    display: flex;
+    flex-direction: column;
+    gap: var(--page-gap);
+}
+
+.contact-info {
+    display: flex;
+    gap: var(--inner-gap);
+}
+
+.contact-form-container {
+    width: 60vw;
+}
+
+.contact-form,
+.contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1.1rem;
+}
+
+.contact-form {
+    gap: 15px;
+}
+
+.contact-form input[type='text'],
+.contact-form textarea{
+
+}
+
+.contact-form textarea{
+    resize: none;
+}
+
+.contact-right {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    gap: var(--inner-gap);
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-right h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.contact-right h4 {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 20vw;
+}
+
+.contact-right p {
+    font-size: 1rem;
+    text-align: center;
+    width: 20vw;
+}

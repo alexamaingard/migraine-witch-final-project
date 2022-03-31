@@ -12,6 +12,7 @@ import { Header } from './components/Header';
 
 import './styles/app.css'
 import './styles/reset.css'
+import { Footer } from './components/Footer';
 
 export const App = () => {
     return (
@@ -35,6 +36,7 @@ export const App = () => {
                     path={LOCAL.RECORD_ATTACK} element={<RecordAttack />}
                 />
             </Routes>
+            <Footer />
         </div>
     );
 }
