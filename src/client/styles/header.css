@@ -1,0 +1,36 @@
+.header {
+    height: 5vh;
+    padding: 10px;
+    background-color: var(--brown);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    width: 20vw;
+}
+
+.header-right {
+    color: white;
+    width: 80vw;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-right ul {
+    display: flex;
+    padding-left: 0;
+    gap: 20px;
+}
+
+.header-right a {
+    color: var(--brown);
+}
+
+.header-right li {
+    background-color: var(--grey);
+    height: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
