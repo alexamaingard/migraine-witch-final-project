@@ -11,6 +11,5 @@ export const EFFECTS: Array<Effect> = [
     { name: 'Could not fall asleep' },
     { name: 'Woke up during sleep' },
     { name: 'No screen/phone' },
-    { name: 'Hard to concentrate' },
-    { name: 'Others' }
+    { name: 'Hard to concentrate' }
 ];
