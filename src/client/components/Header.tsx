@@ -7,7 +7,7 @@ export const Header = () => {
         <header>
             <nav className='header'>
                 <div className='logo-container'>
-                    <p>Placeholder for logo</p>
+                    <Link to={LOCAL.HOMEPAGE}>Placeholder for logo</Link>
                 </div>
                 <div className='header-right'>
                     <ul>

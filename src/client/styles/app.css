@@ -3,11 +3,18 @@
     --brown: #423f3e;
     --grey: #c6c7ce;
     --header-height: 5vh;
+    --footer-height: 5vh;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
+    background-color: var(--brown);
+}
+
+h2 {
+    font-size: 3rem;
+    color: white;
 }
 
 h4,
