@@ -2,11 +2,6 @@ import { prisma } from '../utils/prisma';
 import { Attack, Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 
-import { PRISMA_ERROR, SERVER_ERROR, SERVER_SUCCESS } from '../config/serverRes';
-import { 
-    Intensity, Medication, Trigger, Type, Symptom, PhysicalLocation, Effect, Aura, ReliefMethod, PainLocation, AttackData 
-} from '../config/interfaces';
-
 import { INTENSITIES } from '../data/intensities';
 import { MEDICATIONS } from '../data/medications';
 import { SYMPTOMS } from '../data/symptoms';
@@ -17,6 +12,21 @@ import { EFFECTS } from '../data/effects';
 import { AURAS } from '../data/auras';
 import { RELIEF_METHODS } from '../data/reliefMethods';
 import { PAIN_LOCATIONS } from '../data/painLocations';
+
+import { PRISMA_ERROR, SERVER_ERROR, SERVER_SUCCESS } from '../config/serverRes';
+import { 
+    Intensity, 
+    Medication, 
+    Trigger, 
+    Type, 
+    Symptom, 
+    PhysicalLocation, 
+    Effect, 
+    Aura, 
+    ReliefMethod, 
+    PainLocation, 
+    AttackData 
+} from '../config/interfaces';
 
 const createIntensity = async (intensity: { number: number, level: string }):Promise<Intensity | string> => {
     const { number, level } = intensity;
