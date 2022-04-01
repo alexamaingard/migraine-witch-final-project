@@ -8,5 +8,8 @@ export const LOCAL = {
 }
 
 export const DATABASE = {
-    ATTACK: `${process.env.REACT_APP_API_URL}attack/`
+    ATTACK: `${process.env.REACT_APP_API_URL}attack/`,
+    USER: {
+        LOGIN: `${process.env.REACT_APP_API_URL}user/login`
+    } 
 }

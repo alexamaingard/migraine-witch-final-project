@@ -1,5 +1,5 @@
 export const SERVER_ERROR = {
-    UNAUTHORIZED: { MESSAGE: 'Unauthorized', CODE: 401},
+    UNAUTHORIZED: { MESSAGE: 'Username or password incorrect', CODE: 401},
     // FORBIDDEN: { MESSAGE: 'Forbidden', CODE: 403},
     NOT_FOUND: { MESSAGE: 'Not found', CODE: 404},
     INTERNAL: { MESSAGE: 'Internal server error', CODE: 500}
