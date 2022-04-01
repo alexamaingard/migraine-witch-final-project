@@ -27,47 +27,173 @@ interface Data {
     types: Array<Type>;
 }
 
-// interface UserAttackData {
+interface UserAttackData {
+    userId: number | null,
+    startedAt: Date | null,
+    endedAt: Date | null, 
+    typeId: number | null,
+    intensityId: number | null,
+    physicalLocationId: number | null,
+    symptoms: Array<string> | null,
+    triggers: Array<string> | null,
+    auras: Array<string> | null,
+    medicationId: number | null,
+    reliefMethods: Array<string> | null,
+    effects: Array<string> | null,
+    painLocations: Array<string> | null,
+    noteId: number | null
+}
 
-// }
+const initialUserAttackData:UserAttackData = {
+    userId: null,
+    startedAt: null,
+    endedAt: null, 
+    typeId: null,
+    intensityId: null,
+    physicalLocationId: null,
+    symptoms: null,
+    triggers: null,
+    auras: null,
+    medicationId: null,
+    reliefMethods: null,
+    effects: null,
+    painLocations: null,
+    noteId: null
+}
+
+interface UserNote {
+    content: string
+}
 
 export const RecordAttack = () => {
     const [data, setData] = useState<Data>();
-    //const [userAttackData, setUserAttackData] = useState();
+    const [userAttackData, setUserAttackData] = useState<UserAttackData>(initialUserAttackData);
+    const [userNote, setUserNote] = useState<UserNote>();
 
     useEffect(() => {
         const getDataFromDB = async (): Promise<void> => {
             const response = await fetch(DATABASE.ATTACK);
             const fetchedFromDB = await response.json();
-            console.log(fetchedFromDB.data);
+
             setData(fetchedFromDB.data);
         };
         getDataFromDB();
     }, []);
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-        console.log(event.target.value); //change to id if i get it to work
-        const id = event.target.value;
-        if(id !== 'default'){
+    const postNoteToDB = async ():Promise<void> => {
+        const response = await fetch(`${DATABASE.ATTACK}note`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userNote)
+        });
+        const postedNote = await response.json();
+        console.log(postedNote);
 
+        setUserAttackData({
+            ...userAttackData,
+            noteId: postedNote.data.id
+        });
+    }
+
+    const postAttackToDB = async ():Promise<void> => {
+        const response = await fetch(DATABASE.ATTACK, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userAttackData)
+        });
+        const postedAttack = await response.json();
+        console.log(postedAttack);
+    }
+
+    const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
+        const { name, value } = event.target;
+
+        setUserAttackData({
+            ...userAttackData,
+            [name]: value
+        });
+    }
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        const target = event.target.value;
+        const name = target.split('/')[0];
+        const id = Number(target.split('/')[1]);
+
+        if(!isNaN(id)){
+            setUserAttackData({
+                ...userAttackData,
+                [name]: id
+            })
         }
     };
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { name, value } = event.target;
+        let aux = [];
+
+        if(!userAttackData[name]){
+            aux.push(value);
+        }
+        else {
+            if(userAttackData[name].includes(value)){
+                userAttackData[name].splice(userAttackData[name].indexOf(value), 1);
+                aux = [...userAttackData[name]];
+            }
+            else {
+                aux = [...userAttackData[name], value];
+            }
+        }
+
+        setUserAttackData({
+            ...userAttackData,
+            [name]: [...aux]
+        });
+    }
+
+    const handleNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>):void => {
+        const noteContent = event.target.value;
+
+        setUserNote({ content: noteContent });
+    }
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        console.log('data', userAttackData);
+        console.log('note', userNote);
+
+        await postNoteToDB();
+        await postAttackToDB();
+    }
+
+    console.log('new data', userAttackData);
 
     return (
         <section className='record-attack-page'>
             <h2>Record attack</h2>
             <div className='record-attack-container'>
                 <div className='attack-form-container'>
-                    <form className='attack-form'>
-                        <label htmlFor=''>
+                    <form className='attack-form' onSubmit={handleSubmit}>
+                        <label htmlFor='start-time'>
                             When did your migraine start?
-                            <input type='datetime-local' />
+                            <input 
+                                type='datetime-local' 
+                                onChange={handleDateChange}
+                                name='startedAt'
+                            />
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='end-time'>
                             When did your migraine end?
-                            <input type='datetime-local' />
+                            <input 
+                                type='datetime-local' 
+                                name='endedAt'
+                                onChange={handleDateChange}
+                            />
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='type'>
                             What are the attack type(s)?
                             <div className='options'>
                                 <select onChange={handleSelectChange}>
@@ -77,59 +203,57 @@ export const RecordAttack = () => {
                                             return (
                                                 <option
                                                     key={index}
-                                                    value={`${type.id}`}
-                                                    id='hi'
+                                                    value={`typeId/${type.id}`}
                                                 > 
-                                                {type.name}
+                                                    {type.name}
                                                 </option>
                                             );
-                                        })}
+                                        })
+                                    }
                                 </select>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='intensity'>
                             What is the highest pain level of this attack?
                             <div className='options'>
-                                <ul>
+                                <select onChange={handleSelectChange}>
+                                    <option value='default'>Select</option>
                                     {data &&
-                                        data.intensities.map((intensity) => {
+                                        data.intensities.map((intensity, index) => {
                                             return (
-                                                <li key={intensity.id}>
-                                                    <input type='checkbox' />
-                                                    <span>{`${intensity.number} - ${intensity.level}`}</span>
-                                                </li>
+                                                <option
+                                                    key={index}
+                                                    value={`intensityId/${intensity.id}`}
+                                                > 
+                                                    {`${intensity.number} - ${intensity.level}`}
+                                                </option>
                                             );
-                                        })}
-                                </ul>
+                                        })
+                                    }
+                                </select>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='physical-location'>
                             Where were you when the migraine started?
                             <div className='options'>
-                                <ul>
+                                <select onChange={handleSelectChange}>
+                                    <option value='default'>Select</option>
                                     {data &&
-                                        data.physicalLocations.map(
-                                            (physicalLocation) => {
-                                                return (
-                                                    <li
-                                                        key={
-                                                            physicalLocation.id
-                                                        }
-                                                    >
-                                                        <input type='checkbox' />
-                                                        <span>
-                                                            {
-                                                                physicalLocation.name
-                                                            }
-                                                        </span>
-                                                    </li>
-                                                );
-                                            }
-                                        )}
-                                </ul>
+                                        data.physicalLocations.map((physicalLocation, index) => {
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={`physicalLocationId/${physicalLocation.id}`}
+                                                > 
+                                                    {physicalLocation.name}
+                                                </option>
+                                            );
+                                        })
+                                    }
+                                </select>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='symptoms'>
                             Did you experience any of the following symptoms?
                             <div className='options'>
                                 <ul>
@@ -137,7 +261,12 @@ export const RecordAttack = () => {
                                         data.symptoms.map((symptom) => {
                                             return (
                                                 <li key={symptom.id}>
-                                                    <input type='checkbox' />
+                                                    <input 
+                                                        type='checkbox'
+                                                        value={symptom.name}
+                                                        name='symptoms'
+                                                        onChange={handleCheckboxChange}
+                                                    />
                                                     <span>{symptom.name}</span>
                                                 </li>
                                             );
@@ -145,7 +274,7 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='triggers'>
                             Select the potential triggers that come to mind:
                             <div className='options'>
                                 <ul>
@@ -153,7 +282,12 @@ export const RecordAttack = () => {
                                         data.triggers.map((trigger) => {
                                             return (
                                                 <li key={trigger.id}>
-                                                    <input type='checkbox' />
+                                                    <input 
+                                                        type='checkbox' 
+                                                        value={trigger.name}
+                                                        name='triggers'
+                                                        onChange={handleCheckboxChange}
+                                                    />
                                                     <span>{trigger.name}</span>
                                                 </li>
                                             );
@@ -161,7 +295,7 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='auras'>
                             Did you sense it coming?
                             <div className='options'>
                                 <ul>
@@ -169,7 +303,12 @@ export const RecordAttack = () => {
                                         data.auras.map((aura) => {
                                             return (
                                                 <li key={aura.id}>
-                                                    <input type='checkbox' />
+                                                    <input 
+                                                        type='checkbox' 
+                                                        value={aura.name}
+                                                        name='auras'
+                                                        onChange={handleCheckboxChange}
+                                                    />
                                                     <span>{aura.name}</span>
                                                 </li>
                                             );
@@ -177,23 +316,27 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='medication'>
                             Did you take any medication?
                             <div className='options'>
-                                <ul>
+                                <select onChange={handleSelectChange}>
+                                    <option value='default'>Select</option>
                                     {data &&
-                                        data.medications.map((medication) => {
+                                        data.medications.map((medication, index) => {
                                             return (
-                                                <li key={medication.id}>
-                                                    <input type='checkbox' />
-                                                    <span>{`${medication.drug} ${medication.dose} (${medication.type})`}</span>
-                                                </li>
+                                                <option
+                                                    key={index}
+                                                    value={`medicationId/${medication.id}`}
+                                                > 
+                                                    {`${medication.drug} ${medication.dose} (${medication.type})`}
+                                                </option>
                                             );
-                                        })}
-                                </ul>
+                                        })
+                                    }
+                                </select>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='relief-methods'>
                             What relief methods have you tried?
                             <div className='options'>
                                 <ul>
@@ -202,10 +345,13 @@ export const RecordAttack = () => {
                                             (reliefMethod) => {
                                                 return (
                                                     <li key={reliefMethod.id}>
-                                                        <input type='checkbox' />
-                                                        <span>
-                                                            {reliefMethod.name}
-                                                        </span>
+                                                        <input 
+                                                            type='checkbox'
+                                                            value={reliefMethod.name} 
+                                                            name='reliefMethods'
+                                                            onChange={handleCheckboxChange}    
+                                                        />
+                                                        <span>{reliefMethod.name}</span>
                                                     </li>
                                                 );
                                             }
@@ -213,7 +359,7 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='effects'>
                             How did it affect your activities?
                             <div className='options'>
                                 <ul>
@@ -221,7 +367,12 @@ export const RecordAttack = () => {
                                         data.effects.map((effect) => {
                                             return (
                                                 <li key={effect.id}>
-                                                    <input type='checkbox' />
+                                                    <input 
+                                                        type='checkbox' 
+                                                        value={effect.name}
+                                                        name='effects'
+                                                        onChange={handleCheckboxChange}    
+                                                    />
                                                     <span>{effect.name}</span>
                                                 </li>
                                             );
@@ -229,7 +380,7 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='pain-location'>
                             Where did the pain start?
                             <div className='options'>
                                 <ul>
@@ -238,12 +389,13 @@ export const RecordAttack = () => {
                                             (painLocation) => {
                                                 return (
                                                     <li key={painLocation.id}>
-                                                        <input type='checkbox' />
-                                                        <span>
-                                                            {
-                                                                painLocation.location
-                                                            }
-                                                        </span>
+                                                        <input 
+                                                            type='checkbox' 
+                                                            value={painLocation.location}
+                                                            name='painLocations'
+                                                            onChange={handleCheckboxChange}    
+                                                        />
+                                                        <span>{painLocation.location}</span>
                                                     </li>
                                                 );
                                             }
@@ -251,15 +403,17 @@ export const RecordAttack = () => {
                                 </ul>
                             </div>
                         </label>
-                        <label htmlFor=''>
+                        <label htmlFor='note'>
                             Would you like to add any additional notes?
                             <textarea
                                 name=''
                                 id=''
                                 cols={30}
                                 rows={5}
+                                onChange={handleNoteChange}
                             ></textarea>
                         </label>
+                        <button type='submit' className='brown-button'>Submit Attack!</button>
                     </form>
                 </div>
             </div>

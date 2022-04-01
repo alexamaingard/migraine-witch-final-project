@@ -561,8 +561,8 @@ const buildAttackData = (req: Request):AttackData => {
     const { symptoms, triggers, effects, auras, reliefMethods, painLocations } = req.body;
 
     const data = {
-        startedAt: startedAt,
-        endedAt: endedAt,
+        startedAt: new Date(startedAt),
+        endedAt: new Date (endedAt),
         userId: userId,
         intensityId: intensityId,
         medicationId: medicationId,
