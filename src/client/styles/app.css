@@ -1,7 +1,11 @@
 :root {
     /* --brown: #312d2d; */
     --brown: #423f3e;
+    /* --brown: #5E4B56;
+    --brown: #11151C;
+    --brown: #12263A; */
     --grey: #c6c7ce;
+    /* --grey: #212D40; */
     --header-height: 5vh;
     --footer-height: 5vh;
 }
