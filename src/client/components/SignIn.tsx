@@ -62,7 +62,7 @@ export const SignIn = () => {
                         </label>
                         <label htmlFor='password'>Password:
                             <input
-                                type='text'
+                                type='password'
                                 name='password'
                                 onChange={handleChange}
                                 required
