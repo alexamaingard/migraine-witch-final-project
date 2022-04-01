@@ -3,6 +3,12 @@ export interface SignInForm {
     password: string
 }
 
+export interface SignUpForm {
+    username: string,
+    email: string,
+    password: string
+}
+
 export interface UserFromDB {
     data: {
         id: number,
