@@ -43,8 +43,8 @@ export interface PainLocation {
 }
 
 export interface AttackData {
-    startedAt: string,
-    endedAt: string,
+    startedAt: Date,
+    endedAt: Date,
     userId: number,
     intensityId: number,
     medicationId: number,

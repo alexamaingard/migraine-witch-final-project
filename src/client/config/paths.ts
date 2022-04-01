@@ -6,3 +6,7 @@ export const LOCAL = {
     LOGS: '/logs',
     RECORD_ATTACK: '/recordAttack'
 }
+
+export const DATABASE = {
+    ATTACK: `${process.env.REACT_APP_API_URL}attack/`
+}

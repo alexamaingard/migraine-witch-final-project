@@ -52,11 +52,12 @@ button,
 textarea,
 select {
     font: inherit;
+    color: inherit;
 }
 
 input,
 textarea {
-    border: none;
+    /* border: none; */
     border-radius: 3px;
 }
 
