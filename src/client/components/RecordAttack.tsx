@@ -11,8 +11,10 @@ import {
     Type,
 } from '@prisma/client';
 import { useEffect, useState } from 'react';
-import { DATABASE } from '../config/paths';
+import { DATABASE, LOCAL } from '../config/paths';
+import { UserAttackData, InitialUserAttackData } from '../config/interfaces'
 import '../styles/record-attack.css';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
     auras: Array<Aura>;
@@ -27,48 +29,16 @@ interface Data {
     types: Array<Type>;
 }
 
-interface UserAttackData {
-    userId: number | null,
-    startedAt: Date | null,
-    endedAt: Date | null, 
-    typeId: number | null,
-    intensityId: number | null,
-    physicalLocationId: number | null,
-    symptoms: Array<string> | null,
-    triggers: Array<string> | null,
-    auras: Array<string> | null,
-    medicationId: number | null,
-    reliefMethods: Array<string> | null,
-    effects: Array<string> | null,
-    painLocations: Array<string> | null,
-    noteId: number | null
-}
-
-const initialUserAttackData:UserAttackData = {
-    userId: null,
-    startedAt: null,
-    endedAt: null, 
-    typeId: null,
-    intensityId: null,
-    physicalLocationId: null,
-    symptoms: null,
-    triggers: null,
-    auras: null,
-    medicationId: null,
-    reliefMethods: null,
-    effects: null,
-    painLocations: null,
-    noteId: null
-}
-
 interface UserNote {
     content: string
 }
 
 export const RecordAttack = () => {
     const [data, setData] = useState<Data>();
-    const [userAttackData, setUserAttackData] = useState<UserAttackData>(initialUserAttackData);
+    const [userAttackData, setUserAttackData] = useState<UserAttackData>(InitialUserAttackData);
     const [userNote, setUserNote] = useState<UserNote>();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getDataFromDB = async (): Promise<void> => {
@@ -165,8 +135,14 @@ export const RecordAttack = () => {
         console.log('data', userAttackData);
         console.log('note', userNote);
 
-        await postNoteToDB();
+        if(userNote){
+
+            await postNoteToDB();
+        }
+        
         await postAttackToDB();
+
+        navigate(LOCAL.LOGS, { replace: true });
     }
 
     console.log('new data', userAttackData);

@@ -1,5 +1,5 @@
 import { prisma } from '../utils/prisma';
-import { Attack, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 
 import { INTENSITIES } from '../data/intensities';
@@ -793,4 +793,24 @@ export const getAll = async (req: Request, res: Response) => {
             types 
         }}
     );
+}
+
+export const getAttacksByUser = async (req: Request, res: Response) => {
+    const userId:number = Number(req.params.userId);
+    const include = buildAttackInclude();
+
+    const userAttacks = await prisma.attack.findMany({
+        where: {
+            userId: userId
+        },
+        include: {
+            ...include
+        }
+    });
+
+    if(!userAttacks){
+        res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
+    }
+
+    res.status(SERVER_SUCCESS.OK.CODE).json({ data: userAttacks });
 }
