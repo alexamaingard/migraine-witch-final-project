@@ -1,5 +1,6 @@
 .my-logs-page {
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    background-color: var(--grey);
     padding: var(--page-gap) 5vw;
 }
 
@@ -10,7 +11,7 @@
 }
 
 .user-logs {
-    width: 70vw;
+    width: 75vw;
     display: flex;
     flex-direction: column;
     gap: var(--inner-gap);
@@ -18,14 +19,33 @@
 
 .log {
     background-color: white;
-    height: 10vh;
+    height: fit-content;
+    border-radius: 4px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.log-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.log-details {
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 5px 0 5px;
 }
 
 .new-attack-box {
     height: fit-content;
+    width: 15vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     gap: var(--inner-gap);
 }
 
@@ -33,4 +53,10 @@
     width: 18ch;
     text-align: center;
     color: white;
+}
+
+.view-more {
+    width: fit-content;
+    padding: 0 10px;
+    border-radius: 30px;
 }

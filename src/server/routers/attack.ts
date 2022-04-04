@@ -14,6 +14,7 @@ import {
     deleteAttack,
     deleteNote,
     getAll,
+    getAttacksByUser,
     initDataBase, 
     updateNote
 } from '../controllers/attack';
@@ -37,5 +38,6 @@ router.post('/', createAttack);
 router.delete('/', deleteAttack);
 
 router.get('/', getAll);
+router.get('/:userId', getAttacksByUser);
 
 export default router;

@@ -23,7 +23,8 @@ h2 {
 
 h4,
 p,
-a {
+a,
+span {
     font-family: 'OpenSauceSansRegular';
     font-weight: normal;
     font-style: normal;
@@ -33,7 +34,8 @@ section {
     width: 100vw;
 }
 
-button {
+.brown-button,
+.white-button {
     border-radius: 30px;
     height: 4vh;
     width: 12vw;

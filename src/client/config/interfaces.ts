@@ -1,3 +1,5 @@
+import { LOCAL_STORAGE } from "./config"
+
 export interface SignInForm {
     username: string,
     password: string
@@ -16,4 +18,64 @@ export interface UserFromDB {
     },
     token: string,
     error: string
+}
+
+export interface UserAttackData {
+    userId: number,
+    startedAt: Date | null,
+    endedAt: Date | null, 
+    typeId: number | null,
+    intensityId: number | null,
+    physicalLocationId: number | null,
+    symptoms: Array<string> | null,
+    triggers: Array<string> | null,
+    auras: Array<string> | null,
+    medicationId: number | null,
+    reliefMethods: Array<string> | null,
+    effects: Array<string> | null,
+    painLocations: Array<string> | null,
+    noteId: number | null
+}
+
+export interface UserLogData {
+    userId: number,
+    startedAt: Date | null,
+    endedAt: Date | null, 
+    type: {
+        name: string
+    },
+    intensity: {
+       number: number,
+       level: string 
+    },
+    physicalLocation: {
+        name: string
+    },
+    symptoms: Array<string> | null,
+    triggers: Array<string> | null,
+    auras: Array<string> | null,
+    medicationId: number | null,
+    reliefMethods: Array<string> | null,
+    effects: Array<string> | null,
+    painLocations: Array<string> | null,
+    note: null | {
+        content: string
+    }
+}
+
+export const InitialUserAttackData:UserAttackData = {
+    userId: Number(localStorage.getItem(LOCAL_STORAGE.USER_ID)),
+    startedAt: null,
+    endedAt: null, 
+    typeId: null,
+    intensityId: null,
+    physicalLocationId: null,
+    symptoms: null,
+    triggers: null,
+    auras: null,
+    medicationId: null,
+    reliefMethods: null,
+    effects: null,
+    painLocations: null,
+    noteId: null
 }
