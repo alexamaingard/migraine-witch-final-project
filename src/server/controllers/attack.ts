@@ -803,6 +803,9 @@ export const getAttacksByUser = async (req: Request, res: Response) => {
         where: {
             userId: userId
         },
+        orderBy: {
+            id: 'desc'
+        },
         include: {
             ...include
         }
