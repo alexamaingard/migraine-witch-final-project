@@ -46,6 +46,10 @@ export const SignUp = () => {
         navigate(LOCAL.LOGS, { replace: true });
     }
 
+    const handleSignInButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void => {
+        navigate(LOCAL.SIGN_IN, { replace: true });
+    }
+
     return (
         <section className='sign-in-page'>
             <h2>Sign Up</h2>
@@ -84,7 +88,7 @@ export const SignUp = () => {
                 </div>
                 <div className='register-box'>
                     <p>Already have an account?</p>
-                    <button type='submit' className='brown-button'>
+                    <button type='submit' className='brown-button' onClick={handleSignInButtonClick}>
                         Sign In
                     </button>
                 </div>
