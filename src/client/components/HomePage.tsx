@@ -1,7 +1,16 @@
+import { useNavigate } from 'react-router-dom';
+import { LOCAL } from '../config/paths';
 import '../styles/homepage.css';
 import { Contact } from './Contact';
 
 export const HomePage = () => {
+
+    const navigate = useNavigate();
+
+    const handleSignUpButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void => {
+        navigate(LOCAL.SIGN_UP, { replace: true });
+    }
+
     return (
         <section className='homepage'>
             <div className='landing-page'>
@@ -13,7 +22,7 @@ export const HomePage = () => {
                             going on with your body.
                         </h4>
                         <div className='button-container'>
-                            <button className='white-button'>
+                            <button className='white-button' onClick={handleSignUpButtonClick}>
                                 Register Now
                             </button>
                         </div>
@@ -47,7 +56,7 @@ export const HomePage = () => {
                         stopped.
                     </h4>
                     <div className='button-container'>
-                        <button className='white-button'>Join Us</button>
+                        <button className='white-button' onClick={handleSignUpButtonClick}>Join Us</button>
                     </div>
                 </div>
             </div>
