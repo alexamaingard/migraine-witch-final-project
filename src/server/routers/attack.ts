@@ -35,7 +35,7 @@ router.patch('/note/:noteId', updateNote);
 router.delete('/note/:noteId', deleteNote);
 
 router.post('/', createAttack);
-router.delete('/', deleteAttack);
+router.delete('/:id', deleteAttack);
 
 router.get('/', getAll);
 router.get('/:userId', getAttacksByUser);

@@ -1,5 +1,5 @@
 import { prisma } from '../utils/prisma';
-import { Prisma } from '@prisma/client';
+import { Prisma, Aura, Effect, PainLocation, ReliefMethod, Symptom, Trigger } from '@prisma/client';
 import { Request, Response } from 'express';
 
 import { INTENSITIES } from '../data/intensities';
@@ -17,14 +17,8 @@ import { PRISMA_ERROR, SERVER_ERROR, SERVER_SUCCESS } from '../config/serverRes'
 import { 
     Intensity, 
     Medication, 
-    Trigger, 
     Type, 
-    Symptom, 
-    PhysicalLocation, 
-    Effect, 
-    Aura, 
-    ReliefMethod, 
-    PainLocation, 
+    PhysicalLocation,  
     AttackData 
 } from '../config/interfaces';
 
@@ -556,9 +550,20 @@ export const deleteNote = async (req: Request, res: Response):Promise<void> => {
 }
 
 const buildAttackData = (req: Request):AttackData => {
-    const { startedAt, endedAt, userId } = req.body;
+    let { startedAt, endedAt } = req.body;
+    const { userId } = req.body;
     const { intensityId, medicationId, typeId, physicalLocationId, noteId } = req.body;
     const { symptoms, triggers, effects, auras, reliefMethods, painLocations } = req.body;
+
+    console.log('noteId', noteId);
+
+    if(!startedAt){
+        startedAt = Date.now();
+    }
+
+    if(!endedAt){
+        endedAt = Date.now();
+    }
 
     const data = {
         startedAt: new Date(startedAt),
@@ -691,7 +696,7 @@ const buildAttackData = (req: Request):AttackData => {
 
 const buildAttackInclude = () => {
     return {
-        // user: true,
+        user: true,
         intensity: true,
         medication: true,
         type: true,
@@ -754,14 +759,151 @@ export const createAttack = async (req: Request, res: Response):Promise<void> =>
 export const updateAttack = () => {}
 
 export const deleteAttack = async (req: Request, res: Response):Promise<void> => {
-    const attackId: number = Number(req.params.attackId);
+    const id: number = Number(req.params.id);
+
+    const foundAttack = await prisma.attack.findUnique({
+        where: {
+            id: id
+        }
+    });
+
+    if(foundAttack?.noteId){
+        const deletedNote = await prisma.note.delete({
+            where: {
+                id: foundAttack.noteId
+            }
+        });
+        console.log('Deleted', deletedNote);
+    }
+
+    const attackOnAuras = await prisma.attacksOnAuras.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attackOnAuras){
+        for(let i:number = 0; i < attackOnAuras.length; i++){
+            const deletedAttackOnAuras = await prisma.attacksOnAuras.delete({
+                where: {
+                    attackId_auraId: {
+                        attackId: id,
+                        auraId: attackOnAuras[i].auraId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnAuras);
+        }
+    }
+
+    const attacksOnSymptoms = await prisma.attacksOnSymptoms.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attacksOnSymptoms){
+        for(let i:number = 0; i < attacksOnSymptoms.length; i++){
+            const deletedAttackOnSymptoms = await prisma.attacksOnSymptoms.delete({
+                where: {
+                    attackId_symptomId: {
+                        attackId: id,
+                        symptomId: attacksOnSymptoms[i].symptomId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnSymptoms);
+        }
+    }
+
+    const attacksOnEffects = await prisma.attacksOnEffects.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attacksOnEffects){
+        for(let i:number = 0; i < attacksOnEffects.length; i++){
+            const deletedAttackOnEffects = await prisma.attacksOnEffects.delete({
+                where: {
+                    attackId_effectId: {
+                        attackId: id,
+                        effectId: attacksOnEffects[i].effectId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnEffects);
+        }
+    }
+
+    const attacksOnPainLocations = await prisma.attacksOnPainLocations.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attacksOnPainLocations){
+        for(let i:number = 0; i < attacksOnPainLocations.length; i++){
+            const deletedAttackOnPainLocations = await prisma.attacksOnPainLocations.delete({
+                where: {
+                    attackId_painLocationId: {
+                        attackId: id,
+                        painLocationId: attacksOnPainLocations[i].painLocationId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnPainLocations);
+        }
+    }
+
+    const attacksOnReliefMethods = await prisma.attacksOnReliefMethods.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attacksOnReliefMethods){
+        for(let i:number = 0; i < attacksOnReliefMethods.length; i++){
+            const deletedAttackOnReliefMethods = await prisma.attacksOnReliefMethods.delete({
+                where: {
+                    attackId_reliefMethodId: {
+                        attackId: id,
+                        reliefMethodId: attacksOnReliefMethods[i].reliefMethodId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnReliefMethods);
+        }
+    }
+
+    const attacksOnTriggers = await prisma.attacksOnTriggers.findMany({
+        where: {
+            attackId: id
+        }
+    });
+
+    if(attacksOnTriggers){
+        for(let i:number = 0; i < attacksOnTriggers.length; i++){
+            const deletedAttackOnTriggers = await prisma.attacksOnTriggers.delete({
+                where: {
+                    attackId_triggerId: {
+                        attackId: id,
+                        triggerId: attacksOnTriggers[i].triggerId
+                    }
+                }
+            });
+            console.log('Deleted', deletedAttackOnTriggers);
+        }
+    }
+
+    //delete all the aOnB and note
 
     const deletedAttack = await prisma.attack.delete({
         where: {
-            id: attackId
+            id: id
         }
     });
-    console.log('Deleted Note:', deletedAttack);
+    console.log('Deleted Attack:', deletedAttack);
 
     res.status(SERVER_SUCCESS.DELETE_OK.CODE).json(SERVER_SUCCESS.DELETE_OK.MESSAGE);
 }
@@ -804,7 +946,7 @@ export const getAttacksByUser = async (req: Request, res: Response) => {
             userId: userId
         },
         orderBy: {
-            id: 'desc'
+            startedAt: 'desc'
         },
         include: {
             ...include

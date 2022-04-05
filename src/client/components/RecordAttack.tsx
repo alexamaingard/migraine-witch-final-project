@@ -50,7 +50,7 @@ export const RecordAttack = () => {
         getDataFromDB();
     }, []);
 
-    const postNoteToDB = async ():Promise<void> => {
+    const postNoteToDB = async ():Promise<any> => {
         const response = await fetch(`${DATABASE.ATTACK}note`, {
             method: 'POST',
             headers: {
@@ -59,24 +59,19 @@ export const RecordAttack = () => {
             body: JSON.stringify(userNote)
         });
         const postedNote = await response.json();
-        console.log(postedNote);
 
-        setUserAttackData({
-            ...userAttackData,
-            noteId: postedNote.data.id
-        });
+        return postedNote.data.id;
     }
 
-    const postAttackToDB = async ():Promise<void> => {
+    const postAttackToDB = async (noteId: number):Promise<void> => {
         const response = await fetch(DATABASE.ATTACK, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userAttackData)
+            body: JSON.stringify({...userAttackData, noteId: noteId})
         });
         const postedAttack = await response.json();
-        console.log(postedAttack);
     }
 
     const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
@@ -132,20 +127,16 @@ export const RecordAttack = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('data', userAttackData);
-        console.log('note', userNote);
+        let noteId: number;
 
         if(userNote){
-
-            await postNoteToDB();
+            noteId = await postNoteToDB();
         }
         
-        await postAttackToDB();
+        await postAttackToDB(noteId);
 
         navigate(LOCAL.LOGS, { replace: true });
     }
-
-    console.log('new data', userAttackData);
 
     return (
         <section className='record-attack-page'>
@@ -389,7 +380,7 @@ export const RecordAttack = () => {
                                 onChange={handleNoteChange}
                             ></textarea>
                         </label>
-                        <button type='submit' className='brown-button'>Submit Attack!</button>
+                        <button type='submit' className='white-button'>Submit Attack!</button>
                     </form>
                 </div>
             </div>

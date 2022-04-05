@@ -14,15 +14,13 @@ export const MyLogs = () => {
     useEffect(() => {
         const getDataFromDB = async (): Promise<void> => {
             const userId = localStorage.getItem(LOCAL_STORAGE.USER_ID);
-            const response = await fetch(`${DATABASE.ATTACK}/${userId}`);
+            const response = await fetch(`${DATABASE.ATTACK}${userId}`);
             const fetchedFromDB = await response.json();
 
             setAttacks([...fetchedFromDB.data]);
         };
         getDataFromDB();
     }, []);
-
-    console.log(attacks);
 
     const handleRecordButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void => {
         navigate(LOCAL.RECORD_ATTACK, { replace: true });
@@ -35,7 +33,7 @@ export const MyLogs = () => {
                 <div className='user-logs'>
                     {attacks && attacks.map((attack,index) => {
                         return (
-                            <Attack attack={attack} index={index}/>
+                            <Attack attack={attack} key={index} setAttacks={setAttacks}/>
                         );
                     })}
                 </div>
