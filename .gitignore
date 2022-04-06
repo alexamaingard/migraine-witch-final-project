@@ -25,3 +25,5 @@ yarn-error.log*
 
 #migrations
 ./prisma/migrations
+
+./src/client/config/emailJS
