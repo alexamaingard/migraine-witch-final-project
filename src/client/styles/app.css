@@ -48,13 +48,19 @@ section {
     width: 100vw;
 }
 
-.brown-button,
+.blue-button,
 .white-button {
     border-radius: 30px;
     height: 4vh;
     width: 12vw;
     max-width: 200px;
     min-width: 150px;
+}
+
+.blue-button:hover,
+.white-button:hover {
+    transition: .4s;
+    transform: scale(1.05);
 }
 
 .blue-button {

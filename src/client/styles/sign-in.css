@@ -2,16 +2,23 @@
     height: calc(100vh - var(--header-height) - var(--footer-height));
     background-color: var(--light-bgc);
     padding: var(--page-gap) 5vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .sign-in-container {
     padding-top: var(--page-gap);
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: var(--page-gap);
 }
 
-.sign-in-form-container {
-    width: 70vw;
+.sign-in-form-container,
+.register-box-container {
+    display: flex;
+    justify-content: center;
 }
 
 .sign-in-form,
@@ -23,26 +30,68 @@
 }
 
 .sign-in-form {
+    padding: var(--inner-gap);
     width: 30vw;
     gap: 15px;
-    color: white;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
 }
 
 .sign-in-form input {
     border: none;
     color: black;
+    height: 50px;
 }
 
 .register-box {
+    width: 30vw;
+    padding: var(--inner-gap);
     height: fit-content;
+    background-color: white;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--inner-gap);
+    position: absolute;
+    transform: translate(0px, 300px);
+}
+
+.extra-gap {
+    margin-top: 90px;
 }
 
 .register-box p {
     width: 20ch;
     text-align: center;
-    color: white;
+    font-weight: bold;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid var(--dark-bgc);
+    outline: none;
+    background: transparent;
+}
+.input-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    transition: .4s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    font-size: 14px;
 }

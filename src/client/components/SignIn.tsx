@@ -60,36 +60,39 @@ export const SignIn = (props) => {
             <div className='sign-in-container'>
                 <div className='sign-in-form-container'>
                     <form className='sign-in-form' onSubmit={handleSubmit}>
-                        <label htmlFor='username'>
-                        Username:
+                        <div className='input-box'>
                             <input
                                 type='text'
                                 name='username'
-                                placeholder="Your Username"
                                 onChange={handleChange}
                                 required
                             />
-                        </label>
-                        <label htmlFor='password'>Password:
+                            <label htmlFor='username'>Username:</label>
+                        </div>
+                        <div className='input-box'>
                             <input
                                 type='password'
                                 name='password'
-                                placeholder="Your Password"
                                 onChange={handleChange}
                                 required
                             />
-                        </label>
+                            <label htmlFor='password'>Password:</label>
+                        </div>
                         {error && <p className='error'>{error}</p>}
-                        <button type='submit' className='white-button'>
-                            Sign In
-                        </button>
+                        <div className='button-container'>
+                            <button type='submit' className='blue-button'>
+                                Sign In
+                            </button>
+                        </div>
                     </form>
                 </div>
-                <div className='register-box'>
-                    <p>No account yet? Let's go!</p>
-                    <button type='submit' className='white-button' onClick={handleSignUpButtonClick}>
-                        Register Now
-                    </button>
+                <div className='register-box-container'>
+                    <div className='register-box'>
+                        <p>No account yet? Let's go!</p>
+                        <button type='submit' className='blue-button' onClick={handleSignUpButtonClick}>
+                            Register Now
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
