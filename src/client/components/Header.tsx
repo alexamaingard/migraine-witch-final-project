@@ -1,8 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LOCAL } from '../config/paths';
 import '../styles/header.css';
 
-export const Header = () => {
+export const Header = (props) => {
+    const { isSignedIn, setIsSignedIn } = props;
+
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        localStorage.clear();
+        setIsSignedIn(false);
+
+        navigate(LOCAL.HOMEPAGE);
+    }
+
     return (
         <header>
             <nav className='header'>
@@ -17,12 +28,26 @@ export const Header = () => {
                 </div>
                 <div className='header-right'>
                     <ul>
-                        <li>
-                            <Link to={LOCAL.LOGS}>My Logs</Link>
-                        </li>
-                        <li>
-                            <Link to={LOCAL.SIGN_IN}>Sign In/Sign Out</Link>
-                        </li>
+                        {isSignedIn &&
+                            <>
+                                <li>
+                                    <Link to={LOCAL.LOGS}>My Logs</Link>
+                                </li>
+                                <li>
+                                    <Link to={LOCAL.SIGN_IN} onClick={handleSignOut}>Sign Out</Link>
+                                </li>
+                            </>
+                        }
+                        {!isSignedIn &&
+                            <>
+                                <li>
+                                    <Link to={LOCAL.SIGN_IN}>Sign In</Link>
+                                </li>
+                                <li>
+                                    <Link to={LOCAL.SIGN_UP}>Register</Link>
+                                </li>
+                            </>
+                        }
                     </ul>
                 </div>
             </nav>
