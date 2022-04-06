@@ -8,7 +8,9 @@ import { SignInForm, UserFromDB } from '../config/interfaces'
 
 import '../styles/sign-in.css'
 
-export const SignIn = () => {
+export const SignIn = (props) => {
+    const { setIsSignedIn } = props;
+
     const [signInForm, setSignInForm] = useState<SignInForm>();
     const [error, setError] = useState<string>(null);
 
@@ -42,6 +44,8 @@ export const SignIn = () => {
 
         localStorage.setItem(LOCAL_STORAGE.USER_ID, foundUser.data.id.toString());
         localStorage.setItem(LOCAL_STORAGE.TOKEN, foundUser.token);
+
+        setIsSignedIn(true);
 
         navigate(LOCAL.LOGS, { replace: true });
     }

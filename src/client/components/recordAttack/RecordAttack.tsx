@@ -21,6 +21,7 @@ import { StepTwo } from './components/StepTwo';
 import { StepThree } from './components/StepThree';
 import { StepFour } from './components/StepFour';
 import { StepFive } from './components/StepFive';
+import { LOCAL_STORAGE } from '../../config/config';
 
 interface Data {
     auras: Array<Aura>;
@@ -57,6 +58,8 @@ export const RecordAttack = () => {
         getDataFromDB();
     }, []);
 
+
+
     const previousStep = () => {
         const tempStep = step;
         setStep(tempStep - 1);
@@ -81,12 +84,14 @@ export const RecordAttack = () => {
     }
 
     const postAttackToDB = async (noteId: number):Promise<void> => {
+        const userId = Number(localStorage.getItem(LOCAL_STORAGE.USER_ID));
+
         const response = await fetch(DATABASE.ATTACK, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...userAttackData, noteId: noteId})
+            body: JSON.stringify({...userAttackData, userId: userId, noteId: noteId})
         });
         const postedAttack = await response.json();
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 
 import { LOCAL } from './config/paths';
@@ -13,18 +13,29 @@ import { Header } from './components/Header';
 import './styles/app.css'
 import './styles/reset.css'
 import { Footer } from './components/Footer';
+import { LOCAL_STORAGE } from './config/config';
 
 export const App = () => {
+    const [isSignedIn, setIsSignedIn] = useState<Boolean>(false);
+
+    useEffect(() => {
+        localStorage.getItem(LOCAL_STORAGE.TOKEN) && localStorage.getItem(LOCAL_STORAGE.USER_ID) && setIsSignedIn(true);
+        !(localStorage.getItem(LOCAL_STORAGE.TOKEN) && localStorage.getItem(LOCAL_STORAGE.USER_ID)) && setIsSignedIn(false);
+    }, []);
+
     return (
         <div className='App'>
-            <Header />
+            <Header 
+                isSignedIn={isSignedIn} 
+                setIsSignedIn={setIsSignedIn}
+            />
             <Routes>
                 <Route path={LOCAL.HOMEPAGE} element={<HomePage />} />
                 <Route
-                    path={LOCAL.SIGN_UP} element={<SignUp />}
+                    path={LOCAL.SIGN_UP} element={<SignUp setIsSignedIn={setIsSignedIn} />}
                 />
                 <Route
-                    path={LOCAL.SIGN_IN} element={<SignIn />}
+                    path={LOCAL.SIGN_IN} element={<SignIn setIsSignedIn={setIsSignedIn} />}
                 />
                 <Route
                     path={LOCAL.PROFILE} element={<MyProfile />}
