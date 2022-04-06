@@ -81,14 +81,14 @@ export const SignUp = () => {
                             />
                         </label>
                         {error && <p className='error'>{error}</p>}
-                        <button type='submit' className='brown-button'>
+                        <button type='submit' className='white-button'>
                             Sign Up
                         </button>
                     </form>
                 </div>
                 <div className='register-box'>
                     <p>Already have an account?</p>
-                    <button type='submit' className='brown-button' onClick={handleSignInButtonClick}>
+                    <button type='submit' className='white-button' onClick={handleSignInButtonClick}>
                         Sign In
                     </button>
                 </div>

@@ -4,7 +4,7 @@
 }
 
 .homepage {
-    background-color: var(--brown);
+    background-color: var(--dark-bgc);
     width: 100vw;
     color: white;
 }

@@ -1,6 +1,6 @@
 .footer{
     height: var(--footer-height);
-    background-color: var(--brown);
+    background-color: var(--dark-bgc);
     color: white;
     display: flex;
     justify-content: center;

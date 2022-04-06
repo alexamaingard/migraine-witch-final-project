@@ -1,6 +1,6 @@
 .my-logs-page {
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    background-color: var(--grey);
+    background-color: var(--light-bgc);
     padding: var(--page-gap) 5vw;
 }
 

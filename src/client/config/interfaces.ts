@@ -51,13 +51,13 @@ export interface UserLogData {
     physicalLocation: {
         name: string
     },
-    symptoms: Array<string> | null,
-    triggers: Array<string> | null,
-    auras: Array<string> | null,
+    symptoms: Array<string> | undefined,
+    triggers: Array<string> | undefined,
+    auras: Array<string> | undefined,
     medicationId: number | null,
-    reliefMethods: Array<string> | null,
-    effects: Array<string> | null,
-    painLocations: Array<string> | null,
+    reliefMethods: Array<string> | undefined,
+    effects: Array<string> | undefined,
+    painLocations: Array<string> | undefined,
     note: null | {
         content: string
     }
@@ -70,12 +70,12 @@ export const InitialUserAttackData:UserAttackData = {
     typeId: null,
     intensityId: null,
     physicalLocationId: null,
-    symptoms: null,
-    triggers: null,
-    auras: null,
+    symptoms: [],
+    triggers: [],
+    auras: [],
     medicationId: null,
-    reliefMethods: null,
-    effects: null,
-    painLocations: null,
+    reliefMethods: [],
+    effects: [],
+    painLocations: [],
     noteId: null
 }

@@ -7,7 +7,7 @@ import { SignUp } from './components/SignUp';
 import { SignIn } from './components/SignIn';
 import { MyProfile } from './components/MyProfile';
 import { MyLogs } from './components/MyLogs';
-import { RecordAttack } from './components/RecordAttack';
+import { RecordAttack } from './components/recordAttack/RecordAttack';
 import { Header } from './components/Header';
 
 import './styles/app.css'

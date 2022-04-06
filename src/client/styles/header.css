@@ -1,7 +1,7 @@
 .header {
     height: var(--header-height);
     padding: 10px 20px;
-    background-color: var(--brown);
+    background-color: var(--dark-bgc);
     color: white;
     display: flex;
     align-items: center;
@@ -9,6 +9,11 @@
 
 .logo-container {
     width: 20vw;
+}
+
+#logo {
+    width: 95px;
+    height: 75px;
 }
 
 .header-right {
@@ -25,13 +30,11 @@
 }
 
 .header-right a {
-    color: var(--brown);
     font-weight: bold;
+    color: white;
 }
 
 .header-right li {
-    background-color: white;
     height: fit-content;
     padding: 5px;
-    border-radius: 5px;
 }

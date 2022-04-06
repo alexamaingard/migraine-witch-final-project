@@ -7,7 +7,13 @@ export const Header = () => {
         <header>
             <nav className='header'>
                 <div className='logo-container'>
-                    <Link to={LOCAL.HOMEPAGE}>Placeholder for logo</Link>
+                    <Link to={LOCAL.HOMEPAGE}>
+                        <img
+                            src={process.env.PUBLIC_URL + `/images/logo.png`}
+                            alt='logo'
+                            id='logo'
+                        />
+                    </Link>
                 </div>
                 <div className='header-right'>
                     <ul>
@@ -15,7 +21,7 @@ export const Header = () => {
                             <Link to={LOCAL.LOGS}>My Logs</Link>
                         </li>
                         <li>
-                            <Link to={LOCAL.SIGN_IN}>Sign In</Link>
+                            <Link to={LOCAL.SIGN_IN}>Sign In/Sign Out</Link>
                         </li>
                     </ul>
                 </div>

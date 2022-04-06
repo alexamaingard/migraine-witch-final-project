@@ -1,19 +1,33 @@
 :root {
-    /* --brown: #312d2d; */
-    --brown: #423f3e;
-    /* --brown: #5E4B56;
+    --brown: #312d2d;
+    --brown: #423f3e; /*now*/
+    --brown: #5E4B56;
     --brown: #11151C;
-    --brown: #12263A; */
-    --grey: #c6c7ce;
-    /* --grey: #212D40; */
-    --header-height: 5vh;
+    --brown: #12263A;
+
+    --grey: #c6c7ce; /*now*/
+    --grey: #212D40;
+
+    --black-coffee: #2C1A1D;
+    --charleston-green: #293132;
+    --blue-independence: #3A405A;
+    --catawba: #773344;
+    --black-coral: #465362;
+    --cadet-grey: #93A2B4;
+
+    --gunmetal: #122C34;
+
+    --header-height: 6vh;
     --footer-height: 5vh;
+
+    --light-bgc: var(--black-coral);
+    --dark-bgc: var(--black-coral);
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
-    background-color: var(--brown);
+    background-color: var(--dark-bgc);
 }
 
 h2 {
@@ -44,13 +58,13 @@ section {
 }
 
 .brown-button {
-    background-color: var(--brown);
+    background-color: var(--dark-bgc);
     color: white;
     font-weight: bold;
 }
 
 .white-button {
     background-color: white;
-    color: var(--brown);
+    color: var(--dark-bgc);
     font-weight: bold;
 }

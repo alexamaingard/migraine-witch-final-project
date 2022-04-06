@@ -1,18 +1,23 @@
+:root {
+    --attack-form-width: 75vw;
+}
+
 .record-attack-page {
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    background-color: var(--grey);
+    background-color: var(--light-bgc);
     padding: var(--page-gap) 5vw;
 }
 
 .record-attack-container {
     padding-top: var(--page-gap);
     display: flex;
+    justify-content: center;
     gap: var(--page-gap);
 }
 
 .attack-form {
+    width: var(--attack-form-width);
     display: flex;
-    width: 75vw;
     flex-direction: column;
     gap: var(--inner-gap);
 }
@@ -38,4 +43,40 @@ span {
 
 textarea {
     resize: none;
+}
+
+.date-input {
+    width: 75vw;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--inner-gap);
+}
+
+.date-input label {
+    width: calc((var(--attack-form-width) / 2) - (var(--inner-gap) / 2));
+}
+
+.next-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.step-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type='datetime-local']{
+    border: none;
+    background-color: rgba(119, 136, 153, 0.362);
+    /* color: white; */
+}
+
+
+select:focus > option:checked { 
+    background-color: rgba(119, 136, 153, 0.362);
+}
+
+.checkboxes {
+    display: grid;
 }

@@ -908,7 +908,6 @@ export const deleteAttack = async (req: Request, res: Response):Promise<void> =>
     res.status(SERVER_SUCCESS.DELETE_OK.CODE).json(SERVER_SUCCESS.DELETE_OK.MESSAGE);
 }
 
-//GET FUNCTIONS
 export const getAll = async (req: Request, res: Response) => {
     const auras = await prisma.aura.findMany({});
     const effects = await prisma.effect.findMany({});
