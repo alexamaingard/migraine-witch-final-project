@@ -28,6 +28,9 @@ export const Contact = () => {
                                 rows={5}
                             ></textarea>
                         </label>
+                        <div className='button-container'>
+                            <button type='submit' className='white-button'>Send!</button>
+                        </div>
                     </form>
                 </div>
                 <div className='contact-right'>

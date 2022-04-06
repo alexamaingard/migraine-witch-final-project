@@ -61,3 +61,7 @@ textarea {
     text-align: center;
     width: 20vw;
 }
+
+.contact-form .button-container {
+    justify-content: flex-start;
+}
