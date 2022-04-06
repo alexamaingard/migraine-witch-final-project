@@ -60,44 +60,48 @@ export const SignUp = (props) => {
             <div className='sign-in-container'>
                 <div className='sign-in-form-container'>
                     <form className='sign-in-form' onSubmit={handleSubmit}>
-                        <label htmlFor='username'>Username:
+                        <div className='input-box'>
                             <input
                                 type='text'
                                 name='username'
-                                placeholder="john123"
                                 onChange={handleChange}
                                 required
                             />
-                        </label>
-                        <label htmlFor='username'>Email:
+                            <label htmlFor='username'>Username:</label>
+                        </div>
+                        <div className='input-box'>
                             <input
                                 type='email'
                                 name='email'
-                                placeholder="john123@mail.com"
                                 onChange={handleChange}
                                 required
                             />
-                        </label>
-                        <label htmlFor='password'>Password:
+                            <label htmlFor='password'>Email:</label>
+                        </div>
+                        <div className='input-box'>
                             <input
                                 type='password'
                                 name='password'
-                                placeholder="Your password"
                                 onChange={handleChange}
                                 required
                             />
-                        </label>
+                            <label htmlFor='password'>Password:</label>
+                        </div>
                         {error && <p className='error'>{error}</p>}
-                        <button type='submit' className='white-button'>
-                            Sign Up
-                        </button>
+                        <div className='button-container'>
+                            <button type='submit' className='blue-button'>
+                                Sign Up
+                            </button>
+                        </div>
                     </form>
                 </div>
-                <div className='register-box'>
-                    <p>Already have an account?</p>
-                    <button type='submit' className='white-button' onClick={handleSignInButtonClick}>
-                        Sign In
-                    </button>
+                <div className='register-box-container'>
+                    <div className='register-box extra-gap'>
+                        <p>Already have an account?</p>
+                        <button type='submit' className='blue-button' onClick={handleSignInButtonClick}>
+                            Sign In
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
