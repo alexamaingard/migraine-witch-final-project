@@ -12,6 +12,8 @@
     padding-top: var(--page-gap);
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     gap: var(--page-gap);
 }
 
@@ -68,7 +70,7 @@ textarea {
 
 input[type='datetime-local']{
     border: none;
-    background-color: rgba(119, 136, 153, 0.362);
+    /* background-color: rgba(119, 136, 153, 0.362); */
     /* color: white; */
 }
 
@@ -78,5 +80,73 @@ select:focus > option:checked {
 }
 
 .checkboxes {
+    padding-top: calc(var(--inner-gap) / 2);
     display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
 }
+
+.progress-bar-container {
+    width: 50%;
+    z-index: 1;
+}
+
+.progressbar li{
+    float: left;
+    width: 20%;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.progressbar{
+    counter-reset: step;
+}
+
+.progressbar li:before{
+    content:counter(step);
+    counter-increment: step;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #bebebe;
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    line-height: 27px;
+    background: white;
+    color: #bebebe;
+    text-align: center;
+    font-weight: bold;
+}
+
+.progressbar li:after{
+    content: '';
+    position: absolute;
+    width:100%;
+    height: 3px;
+    background: #979797;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressbar li:first-child:after{
+    content: none;
+}
+
+.progressbar li:first-child:before{
+    background: #9ccdeb;
+    color: white;
+    border-color: #9ccdeb;
+}
+
+.progressbar li.active + li:after{
+    background: #9ccdeb;
+}
+
+.progressbar li.active + li:before{
+    border-color: #9ccdeb;
+    background: #9ccdeb;
+    color: white;
+}
+

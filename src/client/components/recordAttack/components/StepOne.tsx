@@ -11,6 +11,15 @@ export const StepOne = (props) => {
         <section className='record-attack-page'>
             <h2>Record attack</h2>
             <div className='record-attack-container'>
+                <div className='progress-bar-container'>
+                    <ul className="progressbar">
+                        <li>Step 1</li>
+                        <li>Step 2</li>
+                        <li>Step 3</li>
+                        <li>Step 4</li>
+                        <li>Step 5</li>
+                    </ul>
+                </div>
                 <div className='attack-form-container'>
                     <form className='attack-form'>
                         <div className='date-input'>

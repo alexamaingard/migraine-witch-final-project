@@ -60,6 +60,7 @@ export const SignUp = () => {
                             <input
                                 type='text'
                                 name='username'
+                                placeholder="john123"
                                 onChange={handleChange}
                                 required
                             />
@@ -68,6 +69,7 @@ export const SignUp = () => {
                             <input
                                 type='email'
                                 name='email'
+                                placeholder="john123@mail.com"
                                 onChange={handleChange}
                                 required
                             />
@@ -76,6 +78,7 @@ export const SignUp = () => {
                             <input
                                 type='password'
                                 name='password'
+                                placeholder="Your password"
                                 onChange={handleChange}
                                 required
                             />

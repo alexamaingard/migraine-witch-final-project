@@ -56,10 +56,12 @@ export const SignIn = () => {
             <div className='sign-in-container'>
                 <div className='sign-in-form-container'>
                     <form className='sign-in-form' onSubmit={handleSubmit}>
-                        <label htmlFor='username'>Username:
+                        <label htmlFor='username'>
+                        Username:
                             <input
                                 type='text'
                                 name='username'
+                                placeholder="Your Username"
                                 onChange={handleChange}
                                 required
                             />
@@ -68,6 +70,7 @@ export const SignIn = () => {
                             <input
                                 type='password'
                                 name='password'
+                                placeholder="Your Password"
                                 onChange={handleChange}
                                 required
                             />
