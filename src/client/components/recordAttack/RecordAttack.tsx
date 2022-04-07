@@ -118,6 +118,17 @@ export const RecordAttack = () => {
         }
     };
 
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
+        const target = event.target.value;
+        const name = target.split('/')[0];
+        const id = Number(target.split('/')[1]);
+
+        setUserAttackData({
+            ...userAttackData,
+            [name]: id
+        });
+    }
+
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
         let aux = [];
@@ -164,10 +175,9 @@ export const RecordAttack = () => {
         case 1:
             return (
                 <StepOne 
-                    userAttackData={userAttackData}
                     data={data} 
                     handleDateChange={handleDateChange}
-                    handleSelectChange={handleSelectChange}
+                    handleRadioChange={handleRadioChange}
                     nextStep={nextStep}
                 />
             )
@@ -176,7 +186,7 @@ export const RecordAttack = () => {
                 <StepTwo 
                     userAttackData={userAttackData}
                     data={data} 
-                    handleSelectChange={handleSelectChange}
+                    handleRadioChange={handleRadioChange}
                     handleCheckboxChange={handleCheckboxChange}
                     previousStep={previousStep}
                     nextStep={nextStep}
@@ -198,6 +208,7 @@ export const RecordAttack = () => {
                     userAttackData={userAttackData}
                     data={data} 
                     handleSelectChange={handleSelectChange}
+                    handleRadioChange={handleRadioChange}
                     handleCheckboxChange={handleCheckboxChange}
                     previousStep={previousStep}
                     nextStep={nextStep}

@@ -28,20 +28,26 @@ export const MyLogs = () => {
 
     return (
         <section className='my-logs-page'>
-            <h2>My Records</h2>
-            <div className='my-logs-container'>
+            <h2>My Records</h2> 
+                <div className='my-logs-container'>
                 <div className='user-logs'>
                     {attacks && attacks.map((attack,index) => {
                         return (
                             <Attack attack={attack} key={index} setAttacks={setAttacks}/>
                         );
                     })}
+                    {attacks?.length === 0 && 
+                        <div className='no-attacks'>
+                            <p>Looks like you have no registered attacks yet.</p>
+                        </div>
+                    }
                 </div>
                 <div className='new-attack-box'>
                     <p>New attack? We're sorry to hear</p>
                     <button className='white-button' onClick={handleRecordButtonClick}>Record Attack</button>
                 </div>
-            </div>
+                </div>
+
         </section>
     );
 };

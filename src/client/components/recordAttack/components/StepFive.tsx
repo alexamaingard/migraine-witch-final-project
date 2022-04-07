@@ -23,8 +23,7 @@ export const StepFive = (props) => {
                         <label htmlFor='note'>
                             Would you like to add any additional notes?
                             <textarea
-                                name=''
-                                id=''
+                                placeholder='Type here...'
                                 cols={30}
                                 rows={5}
                                 onChange={handleNoteChange}

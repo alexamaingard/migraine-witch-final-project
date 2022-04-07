@@ -9,6 +9,6 @@ export const INTENSITIES: Array<Intensity> = [
     { number: 6, level: 'Moderate'},
     { number: 7, level: 'Severe'},
     { number: 8, level: 'Severe'},
-    { number: 9, level: 'Unbearable pain'},
-    { number: 10, level: 'Unbearable pain'}
+    { number: 9, level: 'Unbearable'},
+    { number: 10, level: 'Unbearable'}
 ];
