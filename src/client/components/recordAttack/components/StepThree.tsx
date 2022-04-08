@@ -31,14 +31,16 @@ export const StepThree = (props) => {
                                         data.symptoms.map((symptom) => {
                                             return (
                                                 <li key={symptom.id}>
-                                                    <input 
-                                                        type='checkbox'
-                                                        value={symptom.name}
-                                                        name='symptoms'
-                                                        onChange={handleCheckboxChange}
-                                                        checked={userAttackData.symptoms.includes(symptom.name)}
-                                                    />
-                                                    <span>{symptom.name}</span>
+                                                    <label>
+                                                        <input 
+                                                            type='checkbox'
+                                                            value={symptom.name}
+                                                            name='symptoms'
+                                                            onChange={handleCheckboxChange}
+                                                            checked={userAttackData.symptoms.includes(symptom.name)}
+                                                        />
+                                                        <span className='checkbox-span'>{symptom.name}</span>
+                                                    </label>
                                                 </li>
                                             );
                                         })}
@@ -53,14 +55,16 @@ export const StepThree = (props) => {
                                         data.triggers.map((trigger) => {
                                             return (
                                                 <li key={trigger.id}>
-                                                    <input 
-                                                        type='checkbox' 
-                                                        value={trigger.name}
-                                                        name='triggers'
-                                                        onChange={handleCheckboxChange}
-                                                        checked={userAttackData.triggers.includes(trigger.name)}
-                                                    />
-                                                    <span>{trigger.name}</span>
+                                                    <label>
+                                                        <input 
+                                                            type='checkbox' 
+                                                            value={trigger.name}
+                                                            name='triggers'
+                                                            onChange={handleCheckboxChange}
+                                                            checked={userAttackData.triggers.includes(trigger.name)}
+                                                        />
+                                                        <span className='checkbox-span'>{trigger.name}</span>
+                                                    </label>
                                                 </li>
                                             );
                                         })}
@@ -75,14 +79,16 @@ export const StepThree = (props) => {
                                         data.auras.map((aura) => {
                                             return (
                                                 <li key={aura.id}>
-                                                    <input 
-                                                        type='checkbox' 
-                                                        value={aura.name}
-                                                        name='auras'
-                                                        onChange={handleCheckboxChange}
-                                                        checked={userAttackData.auras.includes(aura.name)}
-                                                    />
-                                                    <span>{aura.name}</span>
+                                                    <label>
+                                                        <input 
+                                                            type='checkbox' 
+                                                            value={aura.name}
+                                                            name='auras'
+                                                            onChange={handleCheckboxChange}
+                                                            checked={userAttackData.auras.includes(aura.name)}
+                                                        />
+                                                        <span className='checkbox-span'>{aura.name}</span>
+                                                    </label>
                                                 </li>
                                             );
                                         })}
@@ -97,14 +103,16 @@ export const StepThree = (props) => {
                                         data.effects.map((effect) => {
                                             return (
                                                 <li key={effect.id}>
-                                                    <input 
-                                                        type='checkbox' 
-                                                        value={effect.name}
-                                                        name='effects'
-                                                        onChange={handleCheckboxChange}  
-                                                        checked={userAttackData.effects.includes(effect.name)}  
-                                                    />
-                                                    <span>{effect.name}</span>
+                                                    <label>
+                                                        <input 
+                                                            type='checkbox' 
+                                                            value={effect.name}
+                                                            name='effects'
+                                                            onChange={handleCheckboxChange}  
+                                                            checked={userAttackData.effects.includes(effect.name)}  
+                                                        />
+                                                        <span className='checkbox-span'>{effect.name}</span>
+                                                    </label>
                                                 </li>
                                             );
                                         })

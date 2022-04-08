@@ -5,7 +5,9 @@ import React from 'react';
 import '../../../styles/record-attack.css'
 
 export const StepOne = (props) => {
-    const { userAttackData, data, handleDateChange, handleSelectChange, nextStep } = props;
+    const { userAttackData, data, handleDateChange, handleRadioChange, nextStep } = props;
+
+
 
     return (
         <section className='record-attack-page'>
@@ -43,21 +45,25 @@ export const StepOne = (props) => {
                         <label htmlFor='physical-location'>
                             Where were you when the migraine started?
                             <div className='options'>
-                                <select onChange={handleSelectChange}>
-                                    <option value='default'>Select</option>
+                                <ul className='checkboxes'>
                                     {data &&
-                                        data.physicalLocations.map((physicalLocation, index) => {
+                                        data.physicalLocations.map((physicalLocation) => {
                                             return (
-                                                <option
-                                                    key={index}
-                                                    value={`physicalLocationId/${physicalLocation.id}`}
-                                                > 
-                                                    {physicalLocation.name}
-                                                </option>
+                                                <li key={physicalLocation.id}>
+                                                    <label>
+                                                        <input 
+                                                            type='radio' 
+                                                            value={`physicalLocationId/${physicalLocation.id}`}
+                                                            name='physicalLocationId'
+                                                            onChange={handleRadioChange} 
+                                                        />
+                                                        <span className='checkbox-span'>{physicalLocation.name}</span>
+                                                    </label>
+                                                </li>
                                             );
                                         })
                                     }
-                                </select>
+                                </ul>
                             </div>
                         </label>
                         <div className='next-button-container'>

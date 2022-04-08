@@ -5,7 +5,15 @@
 import React from 'react';
 
 export const StepTwo = (props) => {
-    const { userAttackData, data, handleSelectChange, handleCheckboxChange, previousStep, nextStep } = props;
+    const { userAttackData, data, handleRadioChange, handleCheckboxChange, previousStep, nextStep } = props;
+
+    const intensityLevels: Array<string> = [];
+
+    data.intensities.forEach(intensity => {
+        if(intensity.number % 2 !== 0){
+            intensityLevels.push(intensity.level);
+        }
+    })
 
     return (
         <section className='record-attack-page'>
@@ -23,47 +31,62 @@ export const StepTwo = (props) => {
                 <div className='attack-form-container'>
                     <form className='attack-form'>
                         <label htmlFor='type'>
-                            What are the attack type(s)?
+                            What is the attack type?
                             <div className='options'>
-                                <select onChange={handleSelectChange}>
-                                    <option value='default'>Select</option>
+                                <ul className='checkboxes'>
                                     {data &&
                                         data.types.map((type, index) => {
                                             return (
-                                                <option
-                                                    key={index}
-                                                    value={`typeId/${type.id}`}
-                                                > 
-                                                    {type.name}
-                                                </option>
+                                                <li key={index}>
+                                                    <label>
+                                                        <input 
+                                                            type='radio' 
+                                                            value={`typeId/${type.id}`}
+                                                            name='typeId'
+                                                            onChange={handleRadioChange} 
+                                                        />
+                                                        <span className='checkbox-span'>{type.name}</span>
+                                                    </label>
+                                                </li>
                                             );
                                         })
                                     }
-                                </select>
+                                </ul>
                             </div>
                         </label>
                         <label htmlFor='intensity'>
                             What is the highest pain level of this attack?
                             <div className='options'>
-                                <select onChange={handleSelectChange}>
-                                    <option value='default'>Select</option>
+                                <ul className='intensities'>
                                     {data &&
-                                        data.intensities.map((intensity, index) => {
+                                        data.intensities.map((intensity) => {
                                             return (
-                                                <option
-                                                    key={index}
-                                                    value={`intensityId/${intensity.id}`}
-                                                > 
-                                                    {intensity.id > 0 && intensity.id < 3? `🙂 ${intensity.number} - ${intensity.level}`: null}
-                                                    {intensity.id > 2 && intensity.id < 5? `😐 ${intensity.number} - ${intensity.level}`: null}
-                                                    {intensity.id > 4 && intensity.id < 7? `🙁 ${intensity.number} - ${intensity.level}`: null}
-                                                    {intensity.id > 6 && intensity.id < 9? `😖 ${intensity.number} - ${intensity.level}`: null}
-                                                    {intensity.id > 8 && intensity.id < 11? `❗❗ ${intensity.number} - ${intensity.level}`: null}
-                                                </option>
+                                                <li key={intensity.id}>
+                                                    <label>
+                                                        <input 
+                                                            type='radio' 
+                                                            value={`intensityId/${intensity.id}`}
+                                                            name='intensityId'
+                                                            onChange={handleRadioChange} 
+                                                        />
+                                                        <span className='checkbox-span' id={`int${intensity.number}`}>
+                                                            {intensity.number}
+                                                        </span>
+                                                    </label>
+                                                </li>
                                             );
                                         })
                                     }
-                                </select>
+                                </ul>
+                                <ul className='intensity-levels'>
+                                    {data &&
+                                        intensityLevels.map((intensity, index) => {
+                                            return (
+                                                <li key={index}>{intensity}</li>
+                                            )
+                                        })
+                                    }
+                                </ul>
                             </div>
                         </label>
                         <label htmlFor='pain-location'>
@@ -74,14 +97,17 @@ export const StepTwo = (props) => {
                                         data.painLocations.map((painLocation) => {
                                             return (
                                                 <li key={painLocation.id}>
-                                                    <input 
-                                                        type='checkbox' 
-                                                        value={painLocation.location}
-                                                        name='painLocations'
-                                                        onChange={handleCheckboxChange} 
-                                                        checked={userAttackData.painLocations.includes(painLocation.location)}   
-                                                    />
-                                                    <span>{painLocation.location}</span>
+                                                    <label>
+                                                        <input 
+                                                            type='checkbox' 
+                                                            value={painLocation.location}
+                                                            name='painLocations'
+                                                            onChange={handleCheckboxChange} 
+                                                            checked={userAttackData.painLocations.includes(painLocation.location)}   
+                                                        />
+                                                        <span className='checkbox-span'>{painLocation.location}</span>
+                                                    </label>
+
                                                 </li>
                                             );
                                         })

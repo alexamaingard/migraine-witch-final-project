@@ -2,6 +2,9 @@
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
     background-color: var(--light-bgc);
     padding: var(--page-gap) 5vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .my-logs-container {
@@ -38,10 +41,19 @@
     display: flex;
     flex-direction: column;
     padding: 20px 5px 0 5px;
+    gap: 5px;
+}
+
+.log-details span {
+    padding-left: 10px;
+}
+
+.log-details button {
+    border-radius: 4px;
 }
 
 .new-attack-box {
-    height: fit-content;
+    height: 140px;
     width: 15vw;
     display: flex;
     flex-direction: column;
@@ -59,4 +71,18 @@
     width: fit-content;
     padding: 0 10px;
     border-radius: 30px;
+}
+
+.no-attacks {
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-attacks p {
+    font-size: 1.1rem;
 }
