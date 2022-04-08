@@ -41,6 +41,15 @@
     display: flex;
     flex-direction: column;
     padding: 20px 5px 0 5px;
+    gap: 5px;
+}
+
+.log-details span {
+    padding-left: 10px;
+}
+
+.log-details button {
+    border-radius: 4px;
 }
 
 .new-attack-box {

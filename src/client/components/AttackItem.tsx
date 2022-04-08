@@ -59,7 +59,7 @@ export const Attack = (props) => {
                         <p>
                             Symptoms:{' '}
                             {attack.symptoms.map((sym, index) => (
-                                <span key={index}>- {sym.symptom.name}</span>
+                                <span key={index}>&#187; {sym.symptom.name}</span>
                             ))}
                         </p>
                     )}
@@ -67,7 +67,7 @@ export const Attack = (props) => {
                         <p>
                             Triggers:{' '}
                             {attack.triggers.map((trig, index) => (
-                                <span key={index}>- {trig.trigger.name}</span>
+                                <span key={index}>&#187; {trig.trigger.name}</span>
                             ))}
                         </p>
                     )}
@@ -75,7 +75,7 @@ export const Attack = (props) => {
                         <p>
                             Auras:{' '}
                             {attack.auras.map((au, index) => (
-                                <span key={index}>- {au.aura.name}</span>
+                                <span key={index}>&#187; {au.aura.name}</span>
                             ))}
                         </p>
                     )}
@@ -89,7 +89,7 @@ export const Attack = (props) => {
                         <p>
                             Relief Methods:{' '}
                             {attack.reliefMethods.map((rF, index) => (
-                                <span key={index}>- {rF.reliefMethod.name}</span>
+                                <span key={index}>&#187; {rF.reliefMethod.name}</span>
                             ))}
                         </p>
                     )}
@@ -97,7 +97,7 @@ export const Attack = (props) => {
                         <p>
                             Effects on your activities:{' '}
                             {attack.effects.map((eff, index) => (
-                                <span  key={index}>- {eff.effect.name}</span>
+                                <span  key={index}>&#187; {eff.effect.name}</span>
                             ))}
                         </p>
                     )}
@@ -105,7 +105,7 @@ export const Attack = (props) => {
                         <p>
                             Pain Locations:{' '}
                             {attack.painLocations.map((loc, index) => (
-                                <span  key={index}>- {loc.painLocation.location}</span>
+                                <span  key={index}>&#187; {loc.painLocation.location}</span>
                             ))}
                         </p>
                     )}
