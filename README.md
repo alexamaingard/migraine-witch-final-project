@@ -9,24 +9,3 @@ The main functionality of the app is to help you keep track of your migraine att
 ## ERD
 
 ![ERD](./assets/ERD.png)
-
-## How to use
-
-You need to add an .env file with the following:
-
-``
-
-### Setting up
-
-Clone the repo and execute the following:
-
-<!-- Database and Prisma Setup Intructions here -->
-
-- To install dependencies:
-`npm ci`
-
-
-### Intructions
-
-Run the app with: 
-`npm run devstart`
