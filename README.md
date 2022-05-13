@@ -1,11 +1,3 @@
 # Migraine Witch
 
-Website App built in React/TypeScript using an Express server. Built in ≈ 9 days.
-
-The main functionality of the app is to help you keep track of your migraine attacks.
-
-![App Gif](./assets/migraine-witch.gif)
-
-## ERD
-
-![ERD](./assets/ERD.png)
+You can find the final and deployed version of this project at https://github.com/alexamaingard/migraine-witch
